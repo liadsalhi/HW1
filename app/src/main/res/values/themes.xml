@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+      NoActionBar + fullscreen = maximum game canvas.
+      android:windowFullscreen hides the status bar on older APIs.
+    -->
+    <style name="Theme.HW1" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+</resources>

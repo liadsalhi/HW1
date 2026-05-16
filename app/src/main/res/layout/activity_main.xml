@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- 1. HEARTS BAR -->
+    <LinearLayout
+        android:id="@+id/heartsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:paddingTop="14dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="12dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/heart1"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/heart_full"
+            android:contentDescription="Life 1" />
+
+        <ImageView
+            android:id="@+id/heart2"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/heart_full"
+            android:contentDescription="Life 2" />
+
+        <ImageView
+            android:id="@+id/heart3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/heart_full"
+            android:contentDescription="Life 3" />
+    </LinearLayout>
+
+    <!-- 2. GAME AREA – white road with 3 lanes -->
+    <FrameLayout
+        android:id="@+id/gameArea"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF">
+
+        <!-- Lane columns + light-gray divider lines -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <!-- Left lane -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#FFFFFF"/>
+
+            <!-- Divider left|center -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="#FFFFFF"/>
+
+            <!-- Center lane -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#FFFFFF"/>
+
+            <!-- Divider center|right -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="#FFFFFF"/>
+
+            <!-- Right lane -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Player (Mike Tyson) – position set at runtime -->
+        <ImageView
+            android:id="@+id/playerView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/tyson"
+            android:scaleType="fitCenter"
+            android:contentDescription="Mike Tyson" />
+
+    </FrameLayout>
+
+    <!-- 3. CONTROLS BAR – left button far left, right button far right -->
+    <RelativeLayout
+        android:id="@+id/controlsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dp"
+        android:paddingBottom="26dp"
+        android:background="#FFFFFF">
+
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:text="←"
+            android:textSize="48sp"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:background="@drawable/btn_circle"
+            android:stateListAnimator="@null"
+            android:elevation="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:text="→"
+            android:textSize="48sp"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:background="@drawable/btn_circle"
+            android:stateListAnimator="@null"
+            android:elevation="0dp"
+            android:padding="0dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
