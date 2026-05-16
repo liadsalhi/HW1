@@ -34,14 +34,14 @@ class MainActivity : ComponentActivity() {
     // Glove obstacles - spawned dynamically at runtime
     private val gloves = mutableListOf<ImageView>()
     private val GLOVE_COUNT = 3
-    private val GLOVE_SPEED = 12f  // pixels per frame
+    private val FRAME_INTERVAL = 700L  // ms between steps - slow, blocky
 
     // Sizes converted to pixels in onCreate
     private var glovePx = 0
     private var playerW = 0
     private var playerH = 0
 
-    // The game loop runs every 16ms (~60 frames per second)
+    // The game loop runs every 150ms (~6 frames per second) for blocky step movement
     private val handler = Handler(Looper.getMainLooper())
     private var isRunning = false
 
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         override fun run() {
             if (isRunning) {
                 tick()
-                handler.postDelayed(this, 16L)
+                handler.postDelayed(this, FRAME_INTERVAL)
             }
         }
     }
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_main)
 
         // Convert dp values to pixels for this device's screen density
-        glovePx = dp(60)
+        glovePx = dp(100)
         playerW = dp(80)
         playerH = dp(80)
 
@@ -106,18 +106,20 @@ class MainActivity : ComponentActivity() {
             glove.scaleType = ImageView.ScaleType.FIT_CENTER
             gameArea.addView(glove, FrameLayout.LayoutParams(glovePx, glovePx))
 
-            // Random lane, staggered start position above the screen
+            // Random lane, staggered start snapped to grid (multiples of glovePx)
+            val cellsPerScreen = (gameHeight / glovePx).toInt()
+            val staggerCells = cellsPerScreen / GLOVE_COUNT
             glove.x = laneX[Random.nextInt(3)] - glovePx / 2f
-            glove.y = -glovePx.toFloat() - (index * gameHeight / GLOVE_COUNT)
+            glove.y = (-glovePx * (1 + index * staggerCells)).toFloat()
             gloves.add(glove)
         }
     }
 
-    // Called every frame: moves all gloves down and checks for collisions
+    // Called every frame: moves all gloves down one full cell (glovePx) at a time
     private fun tick() {
         val bottom = gameArea.height.toFloat()
         for (glove in gloves) {
-            glove.y += GLOVE_SPEED
+            glove.y += glovePx.toFloat()
 
             when {
                 glove.y > bottom -> recycleGlove(glove)           // passed the bottom - reset to top
@@ -126,10 +128,10 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Moves a glove back to a random lane at the top of the screen
+    // Moves a glove back to the top, snapped to grid
     private fun recycleGlove(glove: ImageView) {
         glove.x = laneX[Random.nextInt(3)] - glovePx / 2f
-        glove.y = -glovePx.toFloat()
+        glove.y = (-glovePx).toFloat()
     }
 
     // Moves the player left (-1) or right (+1), with a smooth animation
